@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Lock, User, AlertCircle } from 'lucide-react';
-import { trpc } from '@/lib/trpc/client';
+// import { trpc } from '@/lib/trpc/client'; // TRPC import removed
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -15,18 +15,9 @@ export default function RegisterPage() {
     confirmPassword: '',
   });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const registerMutation = trpc.auth.register.useMutation({
-    onSuccess: (data) => {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      router.push('/');
-    },
-    onError: (error) => {
-      setError(error.message);
-    },
-  });
-
+  // Temporary register handler without TRPC
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -36,11 +27,35 @@ export default function RegisterPage() {
       return;
     }
 
-    registerMutation.mutate({
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-    });
+    if (formData.password.length < 8) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // TODO: Replace with actual API call
+      // Simulate registration for demo purposes
+      const mockUser = {
+        id: '2',
+        email: formData.email,
+        name: formData.name,
+      };
+      const mockToken = 'mock-jwt-token-new-user';
+      
+      localStorage.setItem('token', mockToken);
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      
+      // Small delay to simulate network request
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      router.push('/');
+    } catch (err) {
+      setError('An error occurred during registration');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -171,10 +186,10 @@ export default function RegisterPage() {
           <div>
             <button
               type="submit"
-              disabled={registerMutation.isPending}
+              disabled={isLoading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {registerMutation.isPending ? 'Creating account...' : 'Create account'}
+              {isLoading ? 'Creating account...' : 'Create account'}
             </button>
           </div>
         </form>

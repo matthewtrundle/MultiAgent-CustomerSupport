@@ -4,29 +4,48 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Lock, AlertCircle } from 'lucide-react';
-import { trpc } from '@/lib/trpc/client';
+// import { trpc } from '@/lib/trpc/client'; // TRPC import removed
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const loginMutation = trpc.auth.login.useMutation({
-    onSuccess: (data) => {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      router.push('/');
-    },
-    onError: (error) => {
-      setError(error.message);
-    },
-  });
-
+  // Temporary login handler without TRPC
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    loginMutation.mutate({ email, password });
+    setIsLoading(true);
+
+    try {
+      // TODO: Replace with actual API call
+      // Simulate login for demo purposes
+      if (email === 'demo@example.com' && password === 'demo123') {
+        // Mock successful login
+        const mockUser = {
+          id: '1',
+          email: email,
+          name: 'Demo User',
+        };
+        const mockToken = 'mock-jwt-token';
+        
+        localStorage.setItem('token', mockToken);
+        localStorage.setItem('user', JSON.stringify(mockUser));
+        
+        // Small delay to simulate network request
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        router.push('/');
+      } else {
+        setError('Invalid email or password');
+      }
+    } catch (err) {
+      setError('An error occurred during login');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -105,10 +124,10 @@ export default function LoginPage() {
           <div>
             <button
               type="submit"
-              disabled={loginMutation.isPending}
+              disabled={isLoading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
 
