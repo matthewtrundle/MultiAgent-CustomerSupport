@@ -821,7 +821,7 @@ export default function DemoPage() {
               <div className="bg-white rounded-lg shadow p-6 mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                   <Network className="mr-2 h-5 w-5 text-purple-600" />
-                  Agent-to-Agent Communications
+                  Agent-to-Agent Communications {useBadAgents && '(Chaos Edition)'}
                 </h3>
                 <div className="space-y-3">
                   {agentCommunications.map((comm, idx) => (
