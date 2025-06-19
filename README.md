@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Customer Support AI - Multi-Agent System
 
-## Getting Started
+A production-ready customer support automation system using multi-agent AI architecture to handle complex support tickets with minimal human intervention.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Intelligent Ticket Router**: Analyzes and classifies tickets by type, urgency, and complexity
+- **Specialized AI Agents**:
+  - Technical Support Agent
+  - Billing Agent  
+  - Product Expert Agent
+  - Escalation Agent
+  - QA Agent (reviews responses before sending)
+- **RAG System**: Vector search with Supabase pgvector for knowledge base
+- **Real-time Dashboard**: Monitor ticket processing in real-time
+- **Learning System**: Improves routing and responses over time
+
+## 🏗️ Architecture
+
+```
+Frontend (Next.js) → API (tRPC) → Agent Orchestrator → Specialized Agents
+                                           ↓
+                              Vector Store (Supabase pgvector)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This app is designed to deploy on:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Vercel** - Frontend & API Routes
+   - Automatic Git deployments
+   - Edge functions for API routes
+   - Environment variable management
 
-## Learn More
+2. **Supabase** - Database & Vector Store
+   - PostgreSQL database
+   - pgvector for embeddings
+   - Real-time subscriptions
+   - Built-in auth (optional)
 
-To learn more about Next.js, take a look at the following resources:
+3. **Railway/Render** (Optional) - Background Jobs
+   - Heavy processing tasks
+   - Scheduled metrics updates
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📋 Prerequisites
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js 18+
+- PostgreSQL (via Supabase)
+- OpenAI API key
+- Supabase account
 
-## Deploy on Vercel
+## 🛠️ Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone the repository**
+```bash
+git clone <your-repo>
+cd customer-support-ai
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Set up Supabase**
+   - Create a new Supabase project
+   - Run the migration in `supabase/migrations/001_enable_vector.sql`
+   - Copy your project URL and keys
+
+4. **Configure environment variables**
+```bash
+cp .env.local.example .env.local
+```
+
+Fill in your credentials:
+- `DATABASE_URL` - Supabase connection string
+- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
+- `SUPABASE_SERVICE_KEY` - Supabase service key
+- `OPENAI_API_KEY` - Your OpenAI API key
+
+5. **Push database schema**
+```bash
+npm run db:push
+```
+
+6. **Run development server**
+```bash
+npm run dev
+```
+
+## 🚀 Deploy to Vercel
+
+1. **Push to GitHub**
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Add environment variables from `.env.local`
+
+3. **Deploy**
+   - Vercel will automatically deploy on push to main
+
+## 📊 Database Schema
+
+Key models:
+- `Ticket` - Support tickets
+- `Message` - Conversation messages
+- `Customer` - Customer information
+- `TicketHandling` - Agent actions
+- `KnowledgeBase` - Vector-indexed knowledge articles
+- `AgentResponse` - Response history for learning
+
+## 🔧 Development
+
+```bash
+# Run development server
+npm run dev
+
+# Run database migrations
+npm run db:migrate
+
+# Seed database with demo data
+npm run db:seed
+
+# Run linting
+npm run lint
+```
+
+## 🎯 Next Steps
+
+- [ ] Add authentication UI
+- [ ] Implement real-time WebSocket updates
+- [ ] Create dashboard components
+- [ ] Add metrics visualization
+- [ ] Implement feedback learning loop
+- [ ] Add more knowledge base sources
+
+## 📝 License
+
+MIT

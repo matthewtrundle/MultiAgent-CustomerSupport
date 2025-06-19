@@ -1,0 +1,178 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id             String           @id @default(dbgenerated("gen_random_uuid()"))
+  email          String           @unique
+  name           String
+  password       String
+  role           UserRole         @default(AGENT)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  messages       Message[]
+  tickets        Ticket[]
+  handledTickets TicketHandling[]
+}
+
+model Customer {
+  id        String    @id @default(dbgenerated("gen_random_uuid()"))
+  email     String    @unique
+  name      String
+  company   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  messages  Message[]
+  tickets   Ticket[]
+}
+
+model Ticket {
+  id           String           @id @default(dbgenerated("gen_random_uuid()"))
+  title        String
+  description  String
+  status       TicketStatus     @default(OPEN)
+  priority     TicketPriority   @default(MEDIUM)
+  category     TicketCategory
+  customerId   String
+  assignedToId String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @default(now()) @updatedAt
+  resolvedAt   DateTime?
+  tags         String[]         @default([])
+  sentiment    Float?
+  confidence   Float?
+  messages     Message[]
+  assignedTo   User?            @relation(fields: [assignedToId], references: [id])
+  customer     Customer         @relation(fields: [customerId], references: [id])
+  handlings    TicketHandling[]
+  metrics      TicketMetrics?
+
+  @@index([assignedToId])
+  @@index([category])
+  @@index([customerId])
+  @@index([status])
+}
+
+model Message {
+  id         String     @id @default(dbgenerated("gen_random_uuid()"))
+  content    String
+  ticketId   String
+  senderId   String?
+  customerId String?
+  agentType  AgentType?
+  isInternal Boolean    @default(false)
+  createdAt  DateTime   @default(now())
+  metadata   Json?
+  customer   Customer?  @relation(fields: [customerId], references: [id])
+  senderUser User?      @relation(fields: [senderId], references: [id])
+  ticket     Ticket     @relation(fields: [ticketId], references: [id])
+
+  @@index([ticketId])
+}
+
+model TicketHandling {
+  id         String    @id @default(dbgenerated("gen_random_uuid()"))
+  ticketId   String
+  agentId    String
+  agentType  AgentType
+  action     String
+  startTime  DateTime  @default(now())
+  endTime    DateTime?
+  successful Boolean?
+  confidence Float?
+  metadata   Json?
+  agent      User      @relation(fields: [agentId], references: [id])
+  ticket     Ticket    @relation(fields: [ticketId], references: [id])
+
+  @@index([ticketId])
+}
+
+model TicketMetrics {
+  id                   String   @id @default(dbgenerated("gen_random_uuid()"))
+  ticketId             String   @unique
+  resolutionTime       Int?
+  handlingTime         Int?
+  customerSatisfaction Float?
+  agentPerformance     Float?
+  escalated            Boolean  @default(false)
+  firstResponseTime    Int?
+  totalResponses       Int      @default(0)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @default(now()) @updatedAt
+  ticket               Ticket   @relation(fields: [ticketId], references: [id])
+}
+
+model KnowledgeBase {
+  id           String                 @id @default(dbgenerated("gen_random_uuid()"))
+  title        String
+  content      String
+  category     String
+  // embedding    Unsupported("vector")?
+  source       String
+  sourceUrl    String?
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @default(now()) @updatedAt
+  usageCount   Int                    @default(0)
+  helpfulCount Int                    @default(0)
+  tags         String[]               @default([])
+
+  // @@index([embedding])
+}
+
+model AgentResponse {
+  id             String         @id @default(dbgenerated("gen_random_uuid()"))
+  agentType      AgentType
+  ticketCategory TicketCategory
+  query          String
+  response       String
+  confidence     Float
+  successful     Boolean
+  feedback       Json?
+  createdAt      DateTime       @default(now())
+}
+
+enum UserRole {
+  ADMIN
+  AGENT
+  SUPERVISOR
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING_CUSTOMER
+  ESCALATED
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TicketCategory {
+  TECHNICAL
+  BILLING
+  PRODUCT
+  GENERAL
+  COMPLAINT
+}
+
+enum AgentType {
+  ROUTER
+  TECHNICAL
+  BILLING
+  PRODUCT
+  ESCALATION
+  QA
+  HUMAN
+}
