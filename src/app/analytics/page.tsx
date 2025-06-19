@@ -1,7 +1,16 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, TrendingDown, Clock, CheckCircle, MessageSquare, Users, Brain, BarChart3 } from 'lucide-react';
+import {
+  TrendingUp,
+  TrendingDown,
+  Clock,
+  CheckCircle,
+  MessageSquare,
+  Users,
+  Brain,
+  BarChart3,
+} from 'lucide-react';
 
 export default function AnalyticsPage() {
   const metrics = [
@@ -66,9 +75,7 @@ export default function AnalyticsPage() {
         {metrics.map((metric) => (
           <Card key={metric.title}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
-                {metric.title}
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600">{metric.title}</CardTitle>
               <metric.icon className="h-4 w-4 text-gray-400" />
             </CardHeader>
             <CardContent>

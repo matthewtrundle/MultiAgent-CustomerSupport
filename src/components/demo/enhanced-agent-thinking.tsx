@@ -40,91 +40,169 @@ const agentProfiles: Record<string, AgentProfile> = {
     role: 'Triage Specialist',
     avatar: '🎯',
     capabilities: [
-      { name: 'Pattern Recognition', description: 'Identifies issue patterns from description', icon: <Brain className="w-4 h-4" /> },
-      { name: 'Priority Assessment', description: 'Determines urgency based on impact', icon: <TrendingUp className="w-4 h-4" /> },
-      { name: 'Category Classification', description: 'Routes to appropriate specialist', icon: <Target className="w-4 h-4" /> },
+      {
+        name: 'Pattern Recognition',
+        description: 'Identifies issue patterns from description',
+        icon: <Brain className="w-4 h-4" />,
+      },
+      {
+        name: 'Priority Assessment',
+        description: 'Determines urgency based on impact',
+        icon: <TrendingUp className="w-4 h-4" />,
+      },
+      {
+        name: 'Category Classification',
+        description: 'Routes to appropriate specialist',
+        icon: <Target className="w-4 h-4" />,
+      },
     ],
     goals: {
       primary: 'Route tickets to the right specialist in <30 seconds',
-      metrics: ['Classification Accuracy: 94%', 'Avg Route Time: 12s', 'Escalation Rate: 8%']
+      metrics: ['Classification Accuracy: 94%', 'Avg Route Time: 12s', 'Escalation Rate: 8%'],
     },
-    systemPrompt: 'Analyze tickets for vacation rental issues, classify by type, assess urgency, and route to specialists.'
+    systemPrompt:
+      'Analyze tickets for vacation rental issues, classify by type, assess urgency, and route to specialists.',
   },
   'Technical Support Agent': {
     name: 'Dr. Debug',
     role: 'Technical Expert',
     avatar: '🔧',
     capabilities: [
-      { name: 'Integration Diagnostics', description: 'Troubleshoots API and sync issues', icon: <Database className="w-4 h-4" /> },
-      { name: 'Solution Synthesis', description: 'Creates step-by-step fixes', icon: <Lightbulb className="w-4 h-4" /> },
-      { name: 'Historical Analysis', description: 'References past solutions', icon: <MessageSquare className="w-4 h-4" /> },
+      {
+        name: 'Integration Diagnostics',
+        description: 'Troubleshoots API and sync issues',
+        icon: <Database className="w-4 h-4" />,
+      },
+      {
+        name: 'Solution Synthesis',
+        description: 'Creates step-by-step fixes',
+        icon: <Lightbulb className="w-4 h-4" />,
+      },
+      {
+        name: 'Historical Analysis',
+        description: 'References past solutions',
+        icon: <MessageSquare className="w-4 h-4" />,
+      },
     ],
     goals: {
       primary: 'Resolve technical issues with clear, actionable steps',
-      metrics: ['First Contact Resolution: 78%', 'Solution Accuracy: 91%', 'Avg Handle Time: 8min']
+      metrics: ['First Contact Resolution: 78%', 'Solution Accuracy: 91%', 'Avg Handle Time: 8min'],
     },
-    systemPrompt: 'Diagnose technical issues with property management systems, provide detailed solutions, reference documentation.'
+    systemPrompt:
+      'Diagnose technical issues with property management systems, provide detailed solutions, reference documentation.',
   },
   'Billing Support Agent': {
     name: 'Penny',
     role: 'Financial Specialist',
     avatar: '💰',
     capabilities: [
-      { name: 'Transaction Analysis', description: 'Traces payment flows', icon: <TrendingUp className="w-4 h-4" /> },
-      { name: 'Policy Application', description: 'Applies refund and fee policies', icon: <Target className="w-4 h-4" /> },
-      { name: 'Calculation Verification', description: 'Validates fees and taxes', icon: <Brain className="w-4 h-4" /> },
+      {
+        name: 'Transaction Analysis',
+        description: 'Traces payment flows',
+        icon: <TrendingUp className="w-4 h-4" />,
+      },
+      {
+        name: 'Policy Application',
+        description: 'Applies refund and fee policies',
+        icon: <Target className="w-4 h-4" />,
+      },
+      {
+        name: 'Calculation Verification',
+        description: 'Validates fees and taxes',
+        icon: <Brain className="w-4 h-4" />,
+      },
     ],
     goals: {
       primary: 'Resolve billing issues accurately while maintaining trust',
-      metrics: ['Payment Accuracy: 99.5%', 'Dispute Resolution: 85%', 'Policy Compliance: 100%']
+      metrics: ['Payment Accuracy: 99.5%', 'Dispute Resolution: 85%', 'Policy Compliance: 100%'],
     },
-    systemPrompt: 'Handle billing inquiries, process refunds per policy, explain fee structures, ensure compliance.'
+    systemPrompt:
+      'Handle billing inquiries, process refunds per policy, explain fee structures, ensure compliance.',
   },
   'Product Expert Agent': {
     name: 'Sophie',
     role: 'Product Specialist',
     avatar: '📚',
     capabilities: [
-      { name: 'Feature Guidance', description: 'Explains platform capabilities', icon: <Lightbulb className="w-4 h-4" /> },
-      { name: 'Best Practices', description: 'Shares optimization strategies', icon: <TrendingUp className="w-4 h-4" /> },
-      { name: 'Use Case Mapping', description: 'Matches features to needs', icon: <Target className="w-4 h-4" /> },
+      {
+        name: 'Feature Guidance',
+        description: 'Explains platform capabilities',
+        icon: <Lightbulb className="w-4 h-4" />,
+      },
+      {
+        name: 'Best Practices',
+        description: 'Shares optimization strategies',
+        icon: <TrendingUp className="w-4 h-4" />,
+      },
+      {
+        name: 'Use Case Mapping',
+        description: 'Matches features to needs',
+        icon: <Target className="w-4 h-4" />,
+      },
     ],
     goals: {
       primary: 'Enable hosts to maximize platform features for success',
-      metrics: ['Feature Adoption: 67%', 'Tutorial Completion: 82%', 'Success Metrics: +23%']
+      metrics: ['Feature Adoption: 67%', 'Tutorial Completion: 82%', 'Success Metrics: +23%'],
     },
-    systemPrompt: 'Guide users through platform features, share best practices, provide strategic advice for property success.'
+    systemPrompt:
+      'Guide users through platform features, share best practices, provide strategic advice for property success.',
   },
   'QA Agent': {
     name: 'Quinn',
     role: 'Quality Assurance',
     avatar: '✅',
     capabilities: [
-      { name: 'Response Validation', description: 'Ensures accuracy and completeness', icon: <Brain className="w-4 h-4" /> },
-      { name: 'Tone Analysis', description: 'Maintains professional communication', icon: <MessageSquare className="w-4 h-4" /> },
-      { name: 'Compliance Check', description: 'Verifies policy adherence', icon: <Target className="w-4 h-4" /> },
+      {
+        name: 'Response Validation',
+        description: 'Ensures accuracy and completeness',
+        icon: <Brain className="w-4 h-4" />,
+      },
+      {
+        name: 'Tone Analysis',
+        description: 'Maintains professional communication',
+        icon: <MessageSquare className="w-4 h-4" />,
+      },
+      {
+        name: 'Compliance Check',
+        description: 'Verifies policy adherence',
+        icon: <Target className="w-4 h-4" />,
+      },
     ],
     goals: {
       primary: 'Ensure every response meets quality and compliance standards',
-      metrics: ['Quality Score: 96%', 'Compliance Rate: 99%', 'Customer Satisfaction: 4.7/5']
+      metrics: ['Quality Score: 96%', 'Compliance Rate: 99%', 'Customer Satisfaction: 4.7/5'],
     },
-    systemPrompt: 'Review agent responses for accuracy, completeness, tone, and policy compliance before sending.'
+    systemPrompt:
+      'Review agent responses for accuracy, completeness, tone, and policy compliance before sending.',
   },
   'Knowledge Base': {
     name: 'Atlas',
     role: 'Information Specialist',
     avatar: '📖',
     capabilities: [
-      { name: 'Semantic Search', description: 'Finds relevant past solutions', icon: <Database className="w-4 h-4" /> },
-      { name: 'Pattern Matching', description: 'Identifies similar issues', icon: <Brain className="w-4 h-4" /> },
-      { name: 'Solution Ranking', description: 'Prioritizes by success rate', icon: <TrendingUp className="w-4 h-4" /> },
+      {
+        name: 'Semantic Search',
+        description: 'Finds relevant past solutions',
+        icon: <Database className="w-4 h-4" />,
+      },
+      {
+        name: 'Pattern Matching',
+        description: 'Identifies similar issues',
+        icon: <Brain className="w-4 h-4" />,
+      },
+      {
+        name: 'Solution Ranking',
+        description: 'Prioritizes by success rate',
+        icon: <TrendingUp className="w-4 h-4" />,
+      },
     ],
     goals: {
       primary: 'Provide instant access to proven solutions',
-      metrics: ['Search Accuracy: 89%', 'Avg Response Time: 1.2s', 'Knowledge Coverage: 94%']
+      metrics: ['Search Accuracy: 89%', 'Avg Response Time: 1.2s', 'Knowledge Coverage: 94%'],
     },
-    systemPrompt: 'Search knowledge base for relevant solutions, rank by relevance and success rate.'
-  }
+    systemPrompt:
+      'Search knowledge base for relevant solutions, rank by relevance and success rate.',
+  },
 };
 
 interface EnhancedAgentThinkingProps {
@@ -133,17 +211,30 @@ interface EnhancedAgentThinkingProps {
   currentAgent?: string;
 }
 
-export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: EnhancedAgentThinkingProps) {
+export function EnhancedAgentThinking({
+  thoughts,
+  isProcessing,
+  currentAgent,
+}: EnhancedAgentThinkingProps) {
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
-  const activeProfile = selectedAgent ? agentProfiles[selectedAgent] : (currentAgent ? agentProfiles[currentAgent] : null);
+  const activeProfile = selectedAgent
+    ? agentProfiles[selectedAgent]
+    : currentAgent
+      ? agentProfiles[currentAgent]
+      : null;
 
   const getThoughtIcon = (type: AgentThought['thoughtType']) => {
     switch (type) {
-      case 'analyzing': return '🔍';
-      case 'searching': return '🔎';
-      case 'deciding': return '🤔';
-      case 'collaborating': return '🤝';
-      case 'learning': return '📚';
+      case 'analyzing':
+        return '🔍';
+      case 'searching':
+        return '🔎';
+      case 'deciding':
+        return '🤔';
+      case 'collaborating':
+        return '🤝';
+      case 'learning':
+        return '📚';
     }
   };
 
@@ -200,7 +291,7 @@ export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: 
               <p className="text-sm text-gray-400">{activeProfile.role}</p>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <h4 className="text-sm font-medium text-purple-400 mb-2">Core Capabilities</h4>
@@ -223,15 +314,15 @@ export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: 
               </div>
               <div className="space-y-1">
                 {activeProfile.goals.metrics.map((metric, idx) => (
-                  <div key={idx} className="text-xs text-gray-400">{metric}</div>
+                  <div key={idx} className="text-xs text-gray-400">
+                    {metric}
+                  </div>
                 ))}
               </div>
             </div>
           </div>
-          
-          <div className="text-xs text-gray-500 italic">
-            System: {activeProfile.systemPrompt}
-          </div>
+
+          <div className="text-xs text-gray-500 italic">System: {activeProfile.systemPrompt}</div>
           <div className="text-xs text-purple-400 mt-2">
             Powered by Claude 3 Sonnet via OpenRouter API
           </div>
@@ -260,12 +351,14 @@ export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: 
                   </span>
                 </div>
                 <span className="text-xs text-gray-500">
-                  {typeof window !== 'undefined' ? new Date(thought.timestamp).toLocaleTimeString() : ''}
+                  {typeof window !== 'undefined'
+                    ? new Date(thought.timestamp).toLocaleTimeString()
+                    : ''}
                 </span>
               </div>
-              
+
               <p className="text-sm mb-2">{thought.content}</p>
-              
+
               {thought.evidence && thought.evidence.length > 0 && (
                 <div className="mb-2">
                   <span className="text-xs text-gray-400">Evidence:</span>
@@ -278,20 +371,23 @@ export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: 
                   </div>
                 </div>
               )}
-              
+
               {thought.relatedTickets && thought.relatedTickets.length > 0 && (
                 <div className="mb-2">
                   <span className="text-xs text-gray-400">Similar tickets:</span>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {thought.relatedTickets.map((ticket, idx) => (
-                      <span key={idx} className="text-xs bg-blue-900 text-blue-300 px-2 py-1 rounded">
+                      <span
+                        key={idx}
+                        className="text-xs bg-blue-900 text-blue-300 px-2 py-1 rounded"
+                      >
                         {ticket}
                       </span>
                     ))}
                   </div>
                 </div>
               )}
-              
+
               {thought.suggestedActions && thought.suggestedActions.length > 0 && (
                 <div className="mb-2">
                   <span className="text-xs text-gray-400">Suggested actions:</span>
@@ -305,13 +401,16 @@ export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: 
                   </ul>
                 </div>
               )}
-              
+
               {thought.collaborationNeeded && thought.collaborationNeeded.length > 0 && (
                 <div>
                   <span className="text-xs text-gray-400">Requesting help from:</span>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {thought.collaborationNeeded.map((agent, idx) => (
-                      <span key={idx} className="text-xs bg-purple-900 text-purple-300 px-2 py-1 rounded">
+                      <span
+                        key={idx}
+                        className="text-xs bg-purple-900 text-purple-300 px-2 py-1 rounded"
+                      >
                         {agent}
                       </span>
                     ))}

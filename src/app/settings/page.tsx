@@ -128,7 +128,7 @@ export default function SettingsPage() {
                 <Input id="confirm-password" type="password" />
               </div>
               <Button>Update Password</Button>
-              
+
               <div className="pt-6 border-t">
                 <h3 className="font-semibold mb-4">Two-Factor Authentication</h3>
                 <div className="flex items-center justify-between">
@@ -156,7 +156,7 @@ export default function SettingsPage() {
                 <p className="text-sm text-gray-600">$99/month</p>
                 <p className="text-sm text-gray-600 mt-2">Next billing date: April 15, 2024</p>
               </div>
-              
+
               <div>
                 <h3 className="font-semibold mb-4">Payment Method</h3>
                 <div className="border rounded-lg p-4">
@@ -167,11 +167,13 @@ export default function SettingsPage() {
                       </div>
                       <span>•••• •••• •••• 4242</span>
                     </div>
-                    <Button variant="outline" size="sm">Update</Button>
+                    <Button variant="outline" size="sm">
+                      Update
+                    </Button>
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex gap-4">
                 <Button variant="outline">View Invoices</Button>
                 <Button variant="outline">Change Plan</Button>

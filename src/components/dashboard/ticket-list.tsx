@@ -63,9 +63,7 @@ export function TicketList({ tickets, onTicketClick }: TicketListProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {ticket.title}
-                    </p>
+                    <p className="text-sm font-medium text-gray-900 truncate">{ticket.title}</p>
                     <div className="flex items-center space-x-2">
                       <PriorityIcon className={cn('h-4 w-4', priority.color)} />
                       <span

@@ -30,7 +30,8 @@ const mockTicket = {
   priority: 'HIGH',
   category: 'Technical',
   createdAt: new Date(Date.now() - 1000 * 60 * 30),
-  description: 'I\'m trying to connect to your API but getting 401 errors even though my API key is correct.',
+  description:
+    "I'm trying to connect to your API but getting 401 errors even though my API key is correct.",
 };
 
 const mockMessages: Message[] = [
@@ -48,7 +49,8 @@ const mockMessages: Message[] = [
   },
   {
     id: '3',
-    content: 'Hello John, I understand you\'re experiencing authentication issues with our API. Let me help you resolve this. First, can you confirm which endpoint you\'re trying to access and what authentication method you\'re using (Bearer token, API key header, etc.)?',
+    content:
+      "Hello John, I understand you're experiencing authentication issues with our API. Let me help you resolve this. First, can you confirm which endpoint you're trying to access and what authentication method you're using (Bearer token, API key header, etc.)?",
     sender: 'agent',
     agentType: 'TECHNICAL',
     timestamp: new Date(mockTicket.createdAt.getTime() + 1000 * 30),
@@ -56,7 +58,8 @@ const mockMessages: Message[] = [
   },
   {
     id: '4',
-    content: 'I\'m using the Bearer token method with the /api/v2/users endpoint. The API key is in the Authorization header.',
+    content:
+      "I'm using the Bearer token method with the /api/v2/users endpoint. The API key is in the Authorization header.",
     sender: 'customer',
     timestamp: new Date(mockTicket.createdAt.getTime() + 1000 * 120),
   },
@@ -87,7 +90,7 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, customerMessage]);
+    setMessages((prev) => [...prev, customerMessage]);
     setNewMessage('');
     setIsAgentTyping(true);
 
@@ -95,13 +98,14 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
     setTimeout(() => {
       const agentMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'I see. The issue might be with the API key format. Make sure your Authorization header is formatted as "Bearer YOUR_API_KEY" with a space between Bearer and your key. Also, ensure your API key has the necessary permissions for the users endpoint.',
+        content:
+          'I see. The issue might be with the API key format. Make sure your Authorization header is formatted as "Bearer YOUR_API_KEY" with a space between Bearer and your key. Also, ensure your API key has the necessary permissions for the users endpoint.',
         sender: 'agent',
         agentType: 'TECHNICAL',
         timestamp: new Date(),
         metadata: { confidence: 0.82, qaApproved: true },
       };
-      setMessages(prev => [...prev, agentMessage]);
+      setMessages((prev) => [...prev, agentMessage]);
       setIsAgentTyping(false);
     }, 2000);
   };
@@ -120,14 +124,20 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
                 <span>•</span>
                 <span>{mockTicket.customer.email}</span>
                 <span>•</span>
-                <span>Created {formatDistanceToNow(mockTicket.createdAt, { addSuffix: true })}</span>
+                <span>
+                  Created {formatDistanceToNow(mockTicket.createdAt, { addSuffix: true })}
+                </span>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className={cn(
-                'px-3 py-1 rounded-full text-xs font-medium',
-                mockTicket.priority === 'HIGH' ? 'bg-orange-100 text-orange-800' : 'bg-gray-100 text-gray-800'
-              )}>
+              <span
+                className={cn(
+                  'px-3 py-1 rounded-full text-xs font-medium',
+                  mockTicket.priority === 'HIGH'
+                    ? 'bg-orange-100 text-orange-800'
+                    : 'bg-gray-100 text-gray-800'
+                )}
+              >
                 {mockTicket.priority}
               </span>
               <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -148,10 +158,12 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
                   message.sender === 'customer' ? 'justify-end' : 'justify-start'
                 )}
               >
-                <div className={cn(
-                  'flex gap-3 max-w-lg',
-                  message.sender === 'customer' ? 'flex-row-reverse' : 'flex-row'
-                )}>
+                <div
+                  className={cn(
+                    'flex gap-3 max-w-lg',
+                    message.sender === 'customer' ? 'flex-row-reverse' : 'flex-row'
+                  )}
+                >
                   <div className="flex-shrink-0">
                     {message.sender === 'customer' ? (
                       <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
@@ -178,14 +190,16 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
                         )}
                       </div>
                     )}
-                    <div className={cn(
-                      'rounded-lg px-4 py-2',
-                      message.sender === 'customer' 
-                        ? 'bg-blue-600 text-white' 
-                        : message.sender === 'system'
-                        ? 'bg-gray-200 text-gray-700 italic text-sm'
-                        : 'bg-white border border-gray-200'
-                    )}>
+                    <div
+                      className={cn(
+                        'rounded-lg px-4 py-2',
+                        message.sender === 'customer'
+                          ? 'bg-blue-600 text-white'
+                          : message.sender === 'system'
+                            ? 'bg-gray-200 text-gray-700 italic text-sm'
+                            : 'bg-white border border-gray-200'
+                      )}
+                    >
                       {message.content}
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
@@ -203,9 +217,18 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
                   </div>
                   <div className="bg-white border border-gray-200 rounded-lg px-4 py-2">
                     <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: '0ms' }}
+                      ></div>
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: '150ms' }}
+                      ></div>
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: '300ms' }}
+                      ></div>
                     </div>
                   </div>
                 </div>
@@ -218,7 +241,13 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
         {/* Message Input */}
         <div className="bg-white border-t p-4">
           <div className="max-w-3xl mx-auto">
-            <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex gap-2">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage();
+              }}
+              className="flex gap-2"
+            >
               <input
                 type="text"
                 value={newMessage}
@@ -240,7 +269,7 @@ export default function TicketDetailPage({ params }: { params: { id: string } })
       {/* Sidebar */}
       <div className="w-80 bg-white border-l p-6 overflow-y-auto">
         <h2 className="text-lg font-semibold mb-4">Ticket Details</h2>
-        
+
         <div className="space-y-4">
           <div>
             <h3 className="text-sm font-medium text-gray-500">Customer</h3>

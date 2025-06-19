@@ -44,26 +44,38 @@ export function AgentActivityPanel({ activities }: AgentActivityProps) {
         <div className="space-y-4">
           {activities.map((activity, index) => {
             const StatusIcon = statusIcons[activity.status];
-            const agentColor = agentColors[activity.agentType as keyof typeof agentColors] || 'bg-gray-100 text-gray-800';
-            
+            const agentColor =
+              agentColors[activity.agentType as keyof typeof agentColors] ||
+              'bg-gray-100 text-gray-800';
+
             return (
               <div key={index} className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
-                  <div className={cn('rounded-full p-2', 
-                    activity.status === 'processing' ? 'bg-blue-50' : 'bg-gray-50'
-                  )}>
-                    <Brain className={cn('h-5 w-5',
-                      activity.status === 'processing' ? 'text-blue-600 animate-pulse' : 'text-gray-400'
-                    )} />
+                  <div
+                    className={cn(
+                      'rounded-full p-2',
+                      activity.status === 'processing' ? 'bg-blue-50' : 'bg-gray-50'
+                    )}
+                  >
+                    <Brain
+                      className={cn(
+                        'h-5 w-5',
+                        activity.status === 'processing'
+                          ? 'text-blue-600 animate-pulse'
+                          : 'text-gray-400'
+                      )}
+                    />
                   </div>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className={cn(
-                        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-                        agentColor
-                      )}>
+                      <span
+                        className={cn(
+                          'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
+                          agentColor
+                        )}
+                      >
                         {activity.agentType} Agent
                       </span>
                       {activity.currentTicket && (
@@ -78,12 +90,18 @@ export function AgentActivityPanel({ activities }: AgentActivityProps) {
                           {Math.round(activity.confidence * 100)}% confidence
                         </span>
                       )}
-                      <StatusIcon className={cn('h-4 w-4',
-                        activity.status === 'completed' ? 'text-green-500' :
-                        activity.status === 'failed' ? 'text-red-500' :
-                        activity.status === 'processing' ? 'text-blue-500' :
-                        'text-gray-400'
-                      )} />
+                      <StatusIcon
+                        className={cn(
+                          'h-4 w-4',
+                          activity.status === 'completed'
+                            ? 'text-green-500'
+                            : activity.status === 'failed'
+                              ? 'text-red-500'
+                              : activity.status === 'processing'
+                                ? 'text-blue-500'
+                                : 'text-gray-400'
+                        )}
+                      />
                     </div>
                   </div>
                 </div>

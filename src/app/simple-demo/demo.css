@@ -1,0 +1,112 @@
+/* Agent color styles - Tailwind doesn't support dynamic classes */
+.agent-card-purple {
+  @apply border-purple-200;
+}
+.agent-card-green {
+  @apply border-green-200;
+}
+.agent-card-blue {
+  @apply border-blue-200;
+}
+.agent-card-orange {
+  @apply border-orange-200;
+}
+.agent-card-yellow {
+  @apply border-yellow-200;
+}
+
+.agent-name-purple {
+  @apply text-purple-600;
+}
+.agent-name-green {
+  @apply text-green-600;
+}
+.agent-name-blue {
+  @apply text-blue-600;
+}
+.agent-name-orange {
+  @apply text-orange-600;
+}
+.agent-name-yellow {
+  @apply text-yellow-600;
+}
+
+/* Smooth animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Loading dots animation */
+.thinking-dot {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus states */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* Hover transitions */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Share menu animation */
+.share-menu-enter {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Mobile responsive tweaks */
+@media (max-width: 640px) {
+  .agent-intro-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print styles for sharing */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+  }
+}

@@ -33,9 +33,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h1 className="text-center text-3xl font-bold text-gray-900">
-            Customer Support AI
-          </h1>
+          <h1 className="text-center text-3xl font-bold text-gray-900">Customer Support AI</h1>
           <h2 className="mt-6 text-center text-2xl font-semibold text-gray-900">
             Sign in to your account
           </h2>
@@ -46,7 +44,7 @@ export default function LoginPage() {
             </Link>
           </p>
         </div>
-        
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="rounded-md bg-red-50 p-4">
@@ -58,7 +56,7 @@ export default function LoginPage() {
               </div>
             </div>
           )}
-          
+
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email" className="sr-only">
@@ -115,9 +113,7 @@ export default function LoginPage() {
           </div>
 
           <div className="text-center">
-            <p className="text-sm text-gray-600">
-              Demo credentials: demo@example.com / demo123
-            </p>
+            <p className="text-sm text-gray-600">Demo credentials: demo@example.com / demo123</p>
           </div>
         </form>
       </div>

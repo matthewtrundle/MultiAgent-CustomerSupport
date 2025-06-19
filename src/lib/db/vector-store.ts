@@ -52,7 +52,7 @@ export class VectorStore {
       let queryBuilder = supabaseAdmin.rpc('search_knowledge_base', {
         query_embedding: queryEmbedding,
         match_count: limit,
-        ...(category && { filter_category: category })
+        ...(category && { filter_category: category }),
       });
 
       const { data, error } = await queryBuilder;
@@ -69,7 +69,7 @@ export class VectorStore {
     try {
       const { error } = await supabaseAdmin.rpc('update_knowledge_stats', {
         doc_id: docId,
-        is_helpful: helpful
+        is_helpful: helpful,
       });
 
       if (error) throw error;

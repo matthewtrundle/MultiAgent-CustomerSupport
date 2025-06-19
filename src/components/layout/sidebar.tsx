@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-  LayoutDashboard, 
-  MessageSquare, 
-  Users, 
-  Brain, 
+import {
+  LayoutDashboard,
+  MessageSquare,
+  Users,
+  Brain,
   Settings,
   BarChart3,
-  BookOpen
+  BookOpen,
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
@@ -48,9 +48,7 @@ export function Sidebar() {
               <item.icon
                 className={cn(
                   'mr-3 h-5 w-5',
-                  isActive
-                    ? 'text-white'
-                    : 'text-gray-400 group-hover:text-white'
+                  isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'
                 )}
               />
               {item.name}

@@ -14,7 +14,7 @@ async function simpleSeed() {
         email: 'demo@example.com',
         name: 'Demo User',
         company: 'Demo Vacation Rentals',
-      }
+      },
     });
 
     console.log('✅ Created demo customer');
@@ -23,7 +23,8 @@ async function simpleSeed() {
     const kbArticles = [
       {
         title: 'Calendar Sync Troubleshooting Guide',
-        content: 'Problem: Calendar sync not working with property management system\n\nSolution: 1. Navigate to Settings > Calendar Sync\n2. Disconnect the affected calendar\n3. Wait 30 seconds\n4. Reconnect with new iCal URL\n5. Enable two-way sync\n6. Set refresh to 15 minutes',
+        content:
+          'Problem: Calendar sync not working with property management system\n\nSolution: 1. Navigate to Settings > Calendar Sync\n2. Disconnect the affected calendar\n3. Wait 30 seconds\n4. Reconnect with new iCal URL\n5. Enable two-way sync\n6. Set refresh to 15 minutes',
         category: 'TECHNICAL',
         source: 'Support Team',
         tags: ['calendar', 'sync', 'ical', 'integration'],
@@ -32,7 +33,8 @@ async function simpleSeed() {
       },
       {
         title: 'Guest Refund Policy Guidelines',
-        content: 'Problem: Guest requesting refund after stay\n\nSolution: Review cancellation policy. For Strict policy, refunds only for documented emergencies. Wifi/amenity issues must be reported during stay for refund eligibility. Offer future stay credit as compromise.',
+        content:
+          'Problem: Guest requesting refund after stay\n\nSolution: Review cancellation policy. For Strict policy, refunds only for documented emergencies. Wifi/amenity issues must be reported during stay for refund eligibility. Offer future stay credit as compromise.',
         category: 'BILLING',
         source: 'Policy Team',
         tags: ['refund', 'policy', 'guest', 'cancellation'],
@@ -41,13 +43,14 @@ async function simpleSeed() {
       },
       {
         title: 'Dynamic Pricing Setup',
-        content: 'Problem: How to set different prices for weekends and holidays\n\nSolution: Go to Settings > Pricing Rules. Create rule for Fri/Sat with +20-30% modifier. Add holiday rules with +50-100% increase. Set minimum stays for peak periods.',
+        content:
+          'Problem: How to set different prices for weekends and holidays\n\nSolution: Go to Settings > Pricing Rules. Create rule for Fri/Sat with +20-30% modifier. Add holiday rules with +50-100% increase. Set minimum stays for peak periods.',
         category: 'PRODUCT',
         source: 'Revenue Team',
         tags: ['pricing', 'dynamic', 'weekend', 'seasonal'],
         usageCount: 312,
         helpfulCount: 289,
-      }
+      },
     ];
 
     for (const article of kbArticles) {
@@ -60,7 +63,8 @@ async function simpleSeed() {
     const tickets = [
       {
         title: 'iCal sync stopped updating',
-        description: 'My calendar sync with Airbnb stopped working yesterday. Getting double bookings.',
+        description:
+          'My calendar sync with Airbnb stopped working yesterday. Getting double bookings.',
         status: TicketStatus.RESOLVED,
         priority: TicketPriority.HIGH,
         category: TicketCategory.TECHNICAL,
@@ -83,7 +87,8 @@ async function simpleSeed() {
       },
       {
         title: 'How to block dates for repairs',
-        description: 'Need to block March 15-20 for roof repairs. How do I do this across all platforms?',
+        description:
+          'Need to block March 15-20 for roof repairs. How do I do this across all platforms?',
         status: TicketStatus.OPEN,
         priority: TicketPriority.MEDIUM,
         category: TicketCategory.PRODUCT,
@@ -91,7 +96,7 @@ async function simpleSeed() {
         tags: ['calendar', 'block', 'maintenance'],
         sentiment: 0.1,
         confidence: 0.95,
-      }
+      },
     ];
 
     for (const ticketData of tickets) {
@@ -105,7 +110,7 @@ async function simpleSeed() {
           ticketId: ticket.id,
           customerId: customer.id,
           content: ticketData.description,
-        }
+        },
       });
 
       // Add metrics for resolved tickets
@@ -119,7 +124,7 @@ async function simpleSeed() {
             customerSatisfaction: 4.5,
             agentPerformance: 0.92,
             totalResponses: 3,
-          }
+          },
         });
       }
     }
@@ -127,7 +132,6 @@ async function simpleSeed() {
     console.log(`✅ Created ${tickets.length} sample tickets`);
 
     console.log('\n🎉 Sample data added successfully!');
-
   } catch (error) {
     console.error('❌ Error adding sample data:', error);
     throw error;
@@ -136,8 +140,7 @@ async function simpleSeed() {
   }
 }
 
-simpleSeed()
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+simpleSeed().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

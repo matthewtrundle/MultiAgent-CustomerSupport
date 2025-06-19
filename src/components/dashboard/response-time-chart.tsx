@@ -1,6 +1,14 @@
 'use client';
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
 interface DataPoint {
   time: string;
@@ -20,28 +28,24 @@ export function ResponseTimeChart({ data }: ResponseTimeChartProps) {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis 
-              dataKey="time" 
-              stroke="#6b7280"
-              fontSize={12}
-            />
-            <YAxis 
+            <XAxis dataKey="time" stroke="#6b7280" fontSize={12} />
+            <YAxis
               stroke="#6b7280"
               fontSize={12}
               label={{ value: 'Minutes', angle: -90, position: 'insideLeft' }}
             />
-            <Tooltip 
-              contentStyle={{ 
+            <Tooltip
+              contentStyle={{
                 backgroundColor: 'white',
                 border: '1px solid #e5e7eb',
-                borderRadius: '6px'
+                borderRadius: '6px',
               }}
               formatter={(value: number) => [`${value} min`, 'Avg Response Time']}
             />
-            <Line 
-              type="monotone" 
-              dataKey="avgResponseTime" 
-              stroke="#3b82f6" 
+            <Line
+              type="monotone"
+              dataKey="avgResponseTime"
+              stroke="#3b82f6"
               strokeWidth={2}
               dot={{ fill: '#3b82f6', r: 4 }}
               activeDot={{ r: 6 }}

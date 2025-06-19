@@ -49,7 +49,7 @@ export function useTicketSocket(ticketId: string) {
 
     // Listen for new messages
     socket.on('message:new', (message) => {
-      setMessages(prev => [...prev, message]);
+      setMessages((prev) => [...prev, message]);
     });
 
     // Listen for agent processing status
@@ -96,16 +96,16 @@ export function useAgentActivity() {
 
     // Listen for agent activity updates
     socket.on('agent:activity', (activity) => {
-      setActivities(prev => {
+      setActivities((prev) => {
         const updated = [...prev];
-        const index = updated.findIndex(a => a.agentType === activity.agentType);
-        
+        const index = updated.findIndex((a) => a.agentType === activity.agentType);
+
         if (index >= 0) {
           updated[index] = { ...updated[index], ...activity };
         } else {
           updated.push(activity);
         }
-        
+
         return updated;
       });
     });

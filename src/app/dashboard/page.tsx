@@ -150,7 +150,7 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 space-y-6">
           <TicketList
             tickets={mockTickets}
-            onTicketClick={(id) => window.location.href = `/tickets/${id}`}
+            onTicketClick={(id) => (window.location.href = `/tickets/${id}`)}
           />
           <ResponseTimeChart data={mockChartData} />
         </div>

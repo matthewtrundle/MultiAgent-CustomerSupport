@@ -5,7 +5,20 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Search, BookOpen, Tag, TrendingUp, Users, Zap, Brain, ChevronRight, Star, BarChart, Plus, Edit } from 'lucide-react';
+import {
+  Search,
+  BookOpen,
+  Tag,
+  TrendingUp,
+  Users,
+  Zap,
+  Brain,
+  ChevronRight,
+  Star,
+  BarChart,
+  Plus,
+  Edit,
+} from 'lucide-react';
 
 interface KnowledgeArticle {
   id: string;
@@ -37,13 +50,15 @@ export default function KnowledgeBasePage() {
       const response = await fetch('/api/knowledge-base');
       if (response.ok) {
         const data = await response.json();
-        setArticles(data.map((article: any) => ({
-          ...article,
-          lastUpdated: new Date(article.updatedAt),
-          author: article.source || 'Support Team',
-          successRate: Math.round((article.helpfulCount / article.usageCount) * 100) || 0,
-          content: article.content || ''
-        })));
+        setArticles(
+          data.map((article: any) => ({
+            ...article,
+            lastUpdated: new Date(article.updatedAt),
+            author: article.source || 'Support Team',
+            successRate: Math.round((article.helpfulCount / article.usageCount) * 100) || 0,
+            content: article.content || '',
+          }))
+        );
       }
     } catch (error) {
       console.error('Error fetching articles:', error);
@@ -86,7 +101,7 @@ Common Issues:
       successRate: 94,
       lastUpdated: new Date('2024-01-15'),
       author: 'Technical Team',
-      relatedArticles: ['API Integration Guide', 'Common Sync Errors', 'Timezone Settings']
+      relatedArticles: ['API Integration Guide', 'Common Sync Errors', 'Timezone Settings'],
     },
     {
       id: '2',
@@ -115,7 +130,7 @@ Resolution Steps:
       successRate: 87,
       lastUpdated: new Date('2024-01-20'),
       author: 'Policy Team',
-      relatedArticles: ['Cancellation Policies', 'Dispute Resolution', 'Guest Communication']
+      relatedArticles: ['Cancellation Policies', 'Dispute Resolution', 'Guest Communication'],
     },
     {
       id: '3',
@@ -153,7 +168,7 @@ Best Practices:
       successRate: 91,
       lastUpdated: new Date('2024-01-18'),
       author: 'Revenue Team',
-      relatedArticles: ['Competitive Analysis', 'Seasonal Calendar', 'Discount Settings']
+      relatedArticles: ['Competitive Analysis', 'Seasonal Calendar', 'Discount Settings'],
     },
     {
       id: '4',
@@ -184,14 +199,15 @@ Troubleshooting:
       successRate: 96,
       lastUpdated: new Date('2024-01-22'),
       author: 'Integration Team',
-      relatedArticles: ['Security Best Practices', 'Guest Check-in', 'Automation Rules']
-    }
+      relatedArticles: ['Security Best Practices', 'Guest Check-in', 'Automation Rules'],
+    },
   ];
 
-  const filteredArticles = (articles.length > 0 ? articles : mockArticles).filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredArticles = (articles.length > 0 ? articles : mockArticles).filter((article) => {
+    const matchesSearch =
+      article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -199,11 +215,14 @@ Troubleshooting:
   const stats = {
     totalArticles: articles.length || mockArticles.length,
     avgSuccessRate: Math.round(
-      (articles.length > 0 ? articles : mockArticles).reduce((acc, a) => acc + a.successRate, 0) / 
-      (articles.length || mockArticles.length)
+      (articles.length > 0 ? articles : mockArticles).reduce((acc, a) => acc + a.successRate, 0) /
+        (articles.length || mockArticles.length)
     ),
-    totalUsage: (articles.length > 0 ? articles : mockArticles).reduce((acc, a) => acc + a.usageCount, 0),
-    lastUpdated: new Date().toLocaleDateString()
+    totalUsage: (articles.length > 0 ? articles : mockArticles).reduce(
+      (acc, a) => acc + a.usageCount,
+      0
+    ),
+    lastUpdated: new Date().toLocaleDateString(),
   };
 
   return (
@@ -240,7 +259,9 @@ Troubleshooting:
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-purple-600">Total Usage</p>
-                  <p className="text-2xl font-bold text-purple-900">{stats.totalUsage.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-purple-900">
+                    {stats.totalUsage.toLocaleString()}
+                  </p>
                 </div>
                 <Users className="h-8 w-8 text-purple-500" />
               </div>
@@ -307,14 +328,19 @@ Troubleshooting:
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {article.title}
-                    </h3>
-                    <Badge variant={
-                      article.category === 'TECHNICAL' ? 'default' :
-                      article.category === 'BILLING' ? 'secondary' :
-                      article.category === 'PRODUCT' ? 'outline' : 'default'
-                    } className="mb-3">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{article.title}</h3>
+                    <Badge
+                      variant={
+                        article.category === 'TECHNICAL'
+                          ? 'default'
+                          : article.category === 'BILLING'
+                            ? 'secondary'
+                            : article.category === 'PRODUCT'
+                              ? 'outline'
+                              : 'default'
+                      }
+                      className="mb-3"
+                    >
                       {article.category}
                     </Badge>
                   </div>
@@ -330,10 +356,7 @@ Troubleshooting:
 
                 <div className="flex flex-wrap gap-1 mb-4">
                   {article.tags.slice(0, 3).map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded"
-                    >
+                    <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
                       {tag}
                     </span>
                   ))}
@@ -406,19 +429,19 @@ Troubleshooting:
                   ×
                 </button>
               </div>
-              
+
               <div className="flex items-center gap-4 mb-6">
                 <Badge>{selectedArticle.category}</Badge>
                 <span className="text-sm text-gray-500">
                   Updated {selectedArticle.lastUpdated.toLocaleDateString()}
                 </span>
-                <span className="text-sm text-gray-500">
-                  by {selectedArticle.author}
-                </span>
+                <span className="text-sm text-gray-500">by {selectedArticle.author}</span>
               </div>
 
               <div className="prose max-w-none mb-6">
-                <pre className="whitespace-pre-wrap font-sans">{selectedArticle.content}</pre>
+                <div className="whitespace-pre-wrap font-sans text-gray-700 bg-gray-50 p-4 rounded-lg">
+                  {selectedArticle.content}
+                </div>
               </div>
 
               <div className="border-t pt-4">

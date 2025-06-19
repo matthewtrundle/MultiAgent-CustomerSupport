@@ -38,12 +38,15 @@ export default function TicketsPage() {
     }
   };
 
-  const filteredTickets = tickets.filter(ticket => {
+  const filteredTickets = tickets.filter((ticket) => {
     if (selectedFilter !== 'all' && ticket.status !== selectedFilter) {
       return false;
     }
-    if (searchQuery && !ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        !ticket.customer.name.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (
+      searchQuery &&
+      !ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      !ticket.customer.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ) {
       return false;
     }
     return true;

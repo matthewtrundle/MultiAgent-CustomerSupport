@@ -12,15 +12,15 @@ interface StatsCardProps {
   iconColor?: string;
 }
 
-export function StatsCard({ 
-  title, 
-  value, 
-  change, 
-  icon: Icon, 
-  iconColor = 'text-gray-400' 
+export function StatsCard({
+  title,
+  value,
+  change,
+  icon: Icon,
+  iconColor = 'text-gray-400',
 }: StatsCardProps) {
   const isPositive = change && change.value > 0;
-  
+
   return (
     <div className="rounded-lg bg-white p-6 shadow">
       <div className="flex items-center">
@@ -29,13 +29,9 @@ export function StatsCard({
           <p className="mt-2 text-3xl font-semibold text-gray-900">{value}</p>
           {change && (
             <p className="mt-2 flex items-baseline text-sm">
-              <span
-                className={cn(
-                  'font-medium',
-                  isPositive ? 'text-green-600' : 'text-red-600'
-                )}
-              >
-                {isPositive ? '+' : ''}{change.value}%
+              <span className={cn('font-medium', isPositive ? 'text-green-600' : 'text-red-600')}>
+                {isPositive ? '+' : ''}
+                {change.value}%
               </span>
               <span className="ml-2 text-gray-500">{change.label}</span>
             </p>
