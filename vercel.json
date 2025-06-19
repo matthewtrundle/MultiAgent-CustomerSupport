@@ -3,19 +3,5 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "regions": ["iad1"],
-  "functions": {
-    "src/app/api/trpc/[trpc]/route.ts": {
-      "maxDuration": 30
-    },
-    "src/app/api/socket/route.ts": {
-      "maxDuration": 60
-    }
-  },
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "OPENAI_API_KEY": "@openai_api_key",
-    "JWT_SECRET": "@jwt_secret",
-    "NEXTAUTH_SECRET": "@nextauth_secret"
-  }
+  "regions": ["iad1"]
 }
