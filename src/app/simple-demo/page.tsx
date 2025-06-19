@@ -119,25 +119,25 @@ export default function SimpleGlassCarDemo() {
 
   const shareToLinkedIn = () => {
     const conversation = getShareableConversation();
-    const text = encodeURIComponent(`Just watched 5 AI agents debate this problem at The AI Argument Clinic! 🤖⚔️${conversation}Try it yourself and see what spicy debates you can create!`);
+    const text = encodeURIComponent(`Just watched 5 AI agents get salty while solving this problem! 🣧🔥${conversation}Try "Agents Being Salty" yourself and see what roasts your question gets!`);
     const url = encodeURIComponent(window.location.href);
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&text=${text}`, '_blank');
   };
 
   const copyShareMessage = () => {
     const conversation = getShareableConversation();
-    const message = `🚀 The AI Argument Clinic
+    const message = `🣧 Agents Being Salty 🔥
 
-Where 5 AI agents with VERY different personalities fight it out until someone makes sense!
+Watch opinionated AI agents roast each other while solving your problems!
 
-Meet the squad:
+Meet the salty squad:
 • Alex (🧠): Overthinking orchestrator  
 • Sophia (💚): Feelings police
 • Marina (📊): "Actually..." expert
 • Marcus (🏗️): Just ship it bro
 • Chad (🚀): Everything needs blockchain
 ${conversation}
-They argue, debate, and somehow find solutions. It's like Silicon Valley's most dysfunctional standup meeting! 
+They throw shade, argue, and somehow find solutions. It's like a tech Twitter thread come to life! 
 
 Try it yourself: ${window.location.href}
 
@@ -159,9 +159,9 @@ Try it yourself: ${window.location.href}
           className="text-center mb-8"
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            The AI Argument Clinic
+            Agents Being Salty
           </h1>
-          <p className="text-gray-600 text-lg sm:text-xl">Where AI agents fight it out until someone makes sense</p>
+          <p className="text-gray-600 text-lg sm:text-xl">Watch opinionated AI agents roast each other while solving your problems</p>
           
           {/* Alternative names with hover effect */}
           <div className="mt-4 flex flex-wrap justify-center gap-2 text-xs text-gray-400">
@@ -170,7 +170,7 @@ Try it yourself: ${window.location.href}
             <span>•</span>
             <button className="hover:text-gray-600 transition-colors duration-200 hover:scale-105">The Great AI Debate-acle</button>
             <span>•</span>
-            <button className="hover:text-gray-600 transition-colors duration-200 hover:scale-105">Bots Being Salty</button>
+            <button className="hover:text-gray-600 transition-colors duration-200 hover:scale-105">The Roast Protocol</button>
             <span>•</span>
             <button className="hover:text-gray-600 transition-colors duration-200 hover:scale-105">AgentGPT: Civil War</button>
           </div>
@@ -519,7 +519,7 @@ Try it yourself: ${window.location.href}
                 >
                   <button
                     onClick={shareToLinkedIn}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded flex items-center gap-2 text-sm"
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded flex items-center gap-2 text-sm text-gray-700"
                   >
                     <svg className="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
@@ -528,9 +528,9 @@ Try it yourself: ${window.location.href}
                   </button>
                   <button
                     onClick={copyShareMessage}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded flex items-center gap-2 text-sm"
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded flex items-center gap-2 text-sm text-gray-700"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                     {copiedMessage ? 'Copied!' : 'Copy Message'}
@@ -559,7 +559,7 @@ Try it yourself: ${window.location.href}
             </div>
           </div>
           <p className="text-xs text-gray-500">
-            AI Brain Trust - Demonstrating multi-agent AI collaboration
+            Agents Being Salty - Where AI personalities clash and solutions emerge
           </p>
         </motion.footer>
       </div>

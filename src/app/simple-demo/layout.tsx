@@ -1,21 +1,21 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'The AI Argument Clinic - Where AI Agents Fight It Out',
-  description: 'Watch 5 opinionated AI agents with clashing personalities debate your problems. They argue, fight, throw shade, and somehow find solutions. Like Silicon Valley\'s most dysfunctional standup meeting!',
-  keywords: 'AI agents, artificial intelligence, AI debate, AI arguments, multi-agent systems, AI personalities, tech humor, problem solving',
-  authors: [{ name: 'The AI Argument Clinic' }],
+  title: 'Agents Being Salty - AI Personalities Clash & Solutions Emerge',
+  description: 'Watch 5 opinionated AI agents roast each other while solving your problems. They throw shade, argue about everything, and somehow find solutions. Like a tech Twitter thread come to life!',
+  keywords: 'AI agents, artificial intelligence, AI personalities, multi-agent systems, AI debate, tech humor, problem solving, roasting',
+  authors: [{ name: 'Agents Being Salty' }],
   openGraph: {
-    title: 'The AI Argument Clinic - Where AI Agents Fight It Out',
-    description: 'Watch 5 opinionated AI agents with clashing personalities debate your problems. They argue, fight, throw shade, and somehow find solutions. Like Silicon Valley\'s most dysfunctional standup meeting!',
+    title: 'Agents Being Salty - AI Personalities Clash & Solutions Emerge',
+    description: 'Watch 5 opinionated AI agents roast each other while solving your problems. They throw shade, argue about everything, and somehow find solutions. Like a tech Twitter thread come to life!',
     url: 'https://your-domain.com/simple-demo',
-    siteName: 'The AI Argument Clinic',
+    siteName: 'Agents Being Salty',
     images: [
       {
         url: '/api/og',
         width: 1200,
         height: 630,
-        alt: 'The AI Argument Clinic - AI agents arguing and debating',
+        alt: 'Agents Being Salty - AI agents roasting each other while problem solving',
       },
     ],
     locale: 'en_US',
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The AI Argument Clinic - Where AI Agents Fight It Out',
-    description: 'Watch 5 opinionated AI agents with clashing personalities debate your problems. They argue, fight, throw shade, and somehow find solutions. Like Silicon Valley\'s most dysfunctional standup meeting!',
+    title: 'Agents Being Salty - AI Personalities Clash & Solutions Emerge',
+    description: 'Watch 5 opinionated AI agents roast each other while solving your problems. They throw shade, argue about everything, and somehow find solutions. Like a tech Twitter thread come to life!',
     images: ['/api/og'],
   },
   robots: {

@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3022",
-    "build": "prisma generate && next build",
+    "build": "next build",
+    "build:full": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx src/scripts/seed-database.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "echo 'Skipping prisma generate for demo deployment'"
   },
   "dependencies": {
     "@langchain/community": "^0.3.46",
