@@ -100,6 +100,9 @@ export default function DemoPage() {
       setAgentActivities([routerActivity]);
       setCurrentAgent('Router Agent');
       
+      // Simulate real processing delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
       // Router thoughts based on actual content
       const routerThoughts: AgentThought[] = useBadAgents ? generateBadRouterThoughts(ticketTitle, keywords, analysis) : [
         {
@@ -821,11 +824,23 @@ export default function DemoPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            AI-Powered Support Revolution
+            Multi-Agent AI Support System Demo
           </h1>
-          <p className="text-xl text-gray-600">
-            Watch our AI agents collaborate in real-time to solve complex support issues
+          <p className="text-xl text-gray-600 mb-4">
+            Watch 5 specialized AI agents analyze, route, and solve vacation rental issues in real-time
           </p>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
+              <h3 className="font-semibold text-blue-900 mb-2">🤖 How it works:</h3>
+              <ol className="text-sm text-blue-800 space-y-1">
+                <li>1. <strong>Router Agent</strong> analyzes your ticket and extracts keywords</li>
+                <li>2. <strong>Knowledge Base</strong> searches 10,000+ articles for solutions</li>
+                <li>3. <strong>Specialist Agent</strong> crafts a personalized solution</li>
+                <li>4. <strong>QA Agent</strong> reviews for accuracy and completeness</li>
+                <li>5. <strong>Result:</strong> 85% faster resolution with 94% accuracy</li>
+              </ol>
+            </div>
+          </div>
           
           {/* Agent Mode Toggle - Only render after hydration */}
           {mounted && (
@@ -859,6 +874,14 @@ export default function DemoPage() {
           )}
         </div>
 
+        {/* Live Demo Indicator */}
+        <div className="mb-6 flex justify-center">
+          <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+            <span className="text-sm font-medium">Live AI Processing Demo</span>
+          </div>
+        </div>
+        
         {/* Impact Metrics */}
         <div className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-4 text-white">
@@ -903,7 +926,8 @@ export default function DemoPage() {
           {/* Left Column - Ticket Submission */}
           <div className="xl:col-span-1">
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Submit a Support Ticket</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">1. Submit a Ticket</h2>
+              <p className="text-sm text-gray-600 mb-4">Try one of our examples or create your own vacation rental issue</p>
               
               <form onSubmit={(e) => { e.preventDefault(); processTicketWithAgents(); }} className="space-y-4">
                 <div>
@@ -986,6 +1010,11 @@ export default function DemoPage() {
 
           {/* Main Column - AI Intelligence Center */}
           <div className="xl:col-span-3">
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">2. Watch AI Agents Think & Collaborate</h2>
+              <p className="text-sm text-gray-600 mt-1">See real-time analysis, keyword extraction, and agent decision-making</p>
+            </div>
+            
             {/* Enhanced Agent Thinking (Primary Focus) */}
             <div className="mb-6">
               {useBadAgents ? (
@@ -1008,8 +1037,9 @@ export default function DemoPage() {
               <div className="bg-gray-800 rounded-lg shadow-xl p-6 text-white mb-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
                   <Brain className="mr-2 h-5 w-5 text-blue-400" />
-                  Text Analysis Results
+                  Real-Time Text Analysis
                 </h3>
+                <p className="text-sm text-gray-400 mb-4">AI agents extract meaning from your ticket in milliseconds</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-gray-700 rounded p-4">
                     <h4 className="text-sm font-medium text-blue-400 mb-2">Keywords Extracted</h4>
@@ -1022,12 +1052,26 @@ export default function DemoPage() {
                     </div>
                   </div>
                   <div className="bg-gray-700 rounded p-4">
-                    <h4 className="text-sm font-medium text-green-400 mb-2">Category Scores</h4>
-                    <div className="space-y-1">
-                      {Object.entries(analysisData.categoryScores).map(([category, score]: [string, any]) => (
-                        <div key={category} className="flex justify-between text-xs">
-                          <span>{category}</span>
-                          <span className="font-mono">{(score * 100).toFixed(0)}%</span>
+                    <h4 className="text-sm font-medium text-green-400 mb-2">Category Confidence</h4>
+                    <div className="space-y-2">
+                      {Object.entries(analysisData.categoryScores)
+                        .sort(([,a], [,b]) => (b as number) - (a as number))
+                        .map(([category, score]: [string, any]) => (
+                        <div key={category}>
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className={score === Math.max(...Object.values(analysisData.categoryScores)) ? 'text-yellow-400 font-bold' : ''}>{category}</span>
+                            <span className="font-mono">{(score * 100).toFixed(0)}%</span>
+                          </div>
+                          <div className="w-full bg-gray-800 rounded-full h-2">
+                            <div 
+                              className={`h-2 rounded-full transition-all duration-1000 ${
+                                score === Math.max(...Object.values(analysisData.categoryScores)) 
+                                  ? 'bg-gradient-to-r from-green-400 to-green-500' 
+                                  : 'bg-gray-600'
+                              }`}
+                              style={{ width: `${score * 100}%` }}
+                            />
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -1070,8 +1114,8 @@ export default function DemoPage() {
                       </div>
                       <p className="text-sm text-gray-700 mb-2">{comm.message}</p>
                       {comm.data && (
-                        <div className="text-xs bg-white rounded p-2 font-mono">
-                          {JSON.stringify(comm.data, null, 2)}
+                        <div className="text-xs bg-gray-800 text-green-400 rounded p-2 font-mono overflow-x-auto">
+                          <pre>{JSON.stringify(comm.data, null, 2)}</pre>
                         </div>
                       )}
                     </div>
@@ -1082,7 +1126,7 @@ export default function DemoPage() {
             
             {/* Condensed Processing Pipeline */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Processing Status</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Agent Activity Timeline</h3>
               
               {agentActivities.length === 0 && !isProcessing && (
                 <div className="text-center py-8 text-gray-500">
@@ -1131,7 +1175,7 @@ export default function DemoPage() {
                         <CheckCircle className="h-6 w-6 text-green-600 mr-3 flex-shrink-0 mt-0.5" />
                         <div className="flex-1">
                           <h3 className="text-lg font-semibold text-green-900">
-                            Ticket Resolved by AI Team
+                            3. AI Team Successfully Resolved Ticket!
                           </h3>
                           <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
                             <div>
