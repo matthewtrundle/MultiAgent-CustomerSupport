@@ -839,6 +839,12 @@ export default function DemoPage() {
                 <li>4. <strong>QA Agent</strong> reviews for accuracy and completeness</li>
                 <li>5. <strong>Result:</strong> 85% faster resolution with 94% accuracy</li>
               </ol>
+              <div className="mt-3 pt-3 border-t border-blue-200">
+                <p className="text-xs text-blue-700">
+                  <strong>AI Model:</strong> Claude 3 Sonnet (via OpenRouter) • 
+                  <strong>Demo Mode:</strong> Simulated responses for instant feedback
+                </p>
+              </div>
             </div>
           </div>
           

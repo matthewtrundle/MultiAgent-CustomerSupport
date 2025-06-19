@@ -232,6 +232,9 @@ export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: 
           <div className="text-xs text-gray-500 italic">
             System: {activeProfile.systemPrompt}
           </div>
+          <div className="text-xs text-purple-400 mt-2">
+            Powered by Claude 3 Sonnet via OpenRouter API
+          </div>
         </div>
       )}
 
