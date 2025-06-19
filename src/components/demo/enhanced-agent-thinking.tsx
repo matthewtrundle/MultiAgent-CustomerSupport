@@ -257,7 +257,7 @@ export function EnhancedAgentThinking({ thoughts, isProcessing, currentAgent }: 
                   </span>
                 </div>
                 <span className="text-xs text-gray-500">
-                  {new Date(thought.timestamp).toLocaleTimeString()}
+                  {typeof window !== 'undefined' ? new Date(thought.timestamp).toLocaleTimeString() : ''}
                 </span>
               </div>
               

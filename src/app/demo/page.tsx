@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Send, Bot, Target, Database, CheckCircle, Clock, Sparkles, Brain, Eye, Users, BarChart, Zap, Lightbulb, MessageSquare, Network } from 'lucide-react';
+import { Send, Bot, Target, Database, CheckCircle, Clock, Sparkles, Brain, Eye, Users, BarChart, Zap, Lightbulb, MessageSquare, Network, Zap as Lightning } from 'lucide-react';
 import { EnhancedAgentThinking, type AgentThought } from '@/components/demo/enhanced-agent-thinking';
+import { BadAgentThinking } from '@/components/demo/bad-agent-thinking';
 
 interface AgentActivity {
   id: string;
@@ -23,24 +24,29 @@ interface AgentCommunication {
 }
 
 export default function DemoPage() {
+  const [mounted, setMounted] = useState(false);
   const [ticketTitle, setTicketTitle] = useState('');
   const [ticketDescription, setTicketDescription] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [agentActivities, setAgentActivities] = useState<AgentActivity[]>([]);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep] = useState(0);
   const [createdTicketId, setCreatedTicketId] = useState<string | null>(null);
   const [agentThoughts, setAgentThoughts] = useState<AgentThought[]>([]);
   const [agentCommunications, setAgentCommunications] = useState<AgentCommunication[]>([]);
   const [currentAgent, setCurrentAgent] = useState<string | null>(null);
   const [resolutionDetails, setResolutionDetails] = useState<any>(null);
   const [analysisData, setAnalysisData] = useState<any>(null);
+  const [useBadAgents, setUseBadAgents] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const processTicketWithAgents = async () => {
     setIsProcessing(true);
     setAgentActivities([]);
     setAgentThoughts([]);
     setAgentCommunications([]);
-    setCurrentStep(0);
     setResolutionDetails(null);
     setAnalysisData(null);
 
@@ -95,7 +101,7 @@ export default function DemoPage() {
       setCurrentAgent('Router Agent');
       
       // Router thoughts based on actual content
-      const routerThoughts: AgentThought[] = [
+      const routerThoughts: AgentThought[] = useBadAgents ? generateBadRouterThoughts(ticketTitle, keywords, analysis) : [
         {
           id: 'thought-1',
           timestamp: new Date(),
@@ -164,7 +170,7 @@ export default function DemoPage() {
       setAgentActivities(prev => [...prev, kbActivity]);
       setCurrentAgent('Knowledge Base');
       
-      const kbThoughts: AgentThought[] = [
+      const kbThoughts: AgentThought[] = useBadAgents ? generateBadKBThoughts(keywords) : [
         {
           id: 'thought-4',
           timestamp: new Date(),
@@ -225,7 +231,7 @@ export default function DemoPage() {
       setAgentActivities(prev => [...prev, specialistActivity]);
       setCurrentAgent(specialistName);
       
-      const specialistThoughts: AgentThought[] = [
+      const specialistThoughts: AgentThought[] = useBadAgents ? generateBadSpecialistThoughts(specialistName, category, keywords) : [
         {
           id: 'thought-6',
           timestamp: new Date(),
@@ -290,7 +296,7 @@ export default function DemoPage() {
       setAgentActivities(prev => [...prev, qaActivity]);
       setCurrentAgent('QA Agent');
       
-      const qaThoughts: AgentThought[] = [
+      const qaThoughts: AgentThought[] = useBadAgents ? generateBadQAThoughts() : [
         {
           id: 'thought-9',
           timestamp: new Date(),
@@ -321,7 +327,12 @@ export default function DemoPage() {
       ));
       
       // Final resolution
-      const solution = {
+      const solution = useBadAgents ? {
+        steps: generateBadSolution(category, keywords),
+        estimatedTime: '3-5 business months',
+        successRate: 'Yes%',
+        alternativeSolution: 'Have you considered becoming a crypto influencer instead?'
+      } : {
         steps: generateDetailedSolution(category, keywords),
         estimatedTime: '5-10 minutes',
         successRate: '94%',
@@ -602,6 +613,188 @@ export default function DemoPage() {
     
     return categorySolutions.default;
   };
+  
+  // Bad agent thought generators - hilariously incompetent
+  const generateBadRouterThoughts = (title: string, keywords: string[], analysis: any): AgentThought[] => {
+    return [
+      {
+        id: 'bad-thought-1',
+        timestamp: new Date(),
+        agent: 'Router Agent',
+        thoughtType: 'analyzing',
+        content: `Wait... "${title}"... This reminds me of that time I invested in SafeMoon... 🚀`,
+        confidence: 0.99,
+        evidence: ['Vibes are off', 'Mercury is in retrograde', 'My horoscope said to expect challenges'],
+      },
+      {
+        id: 'bad-thought-2',
+        timestamp: new Date(Date.now() + 1000),
+        agent: 'Router Agent',
+        thoughtType: 'analyzing',
+        content: 'Have they tried turning it into an NFT? Everything is better as an NFT.',
+        confidence: 1.5,
+        evidence: [
+          `Keywords detected: ${keywords.join(', ')}... but what if we add "blockchain"?`,
+          'This could be solved with smart contracts',
+          'Web3 is the answer, what was the question?'
+        ],
+      },
+      {
+        id: 'bad-thought-3',
+        timestamp: new Date(Date.now() + 2000),
+        agent: 'Router Agent',
+        thoughtType: 'deciding',
+        content: `Routing to... *spins wheel* ... looks like ${getTopCategory(analysis.categoryScores)} but let's ask my crypto trading group first`,
+        confidence: 0.42,
+        suggestedActions: ['Buy Bitcoin', 'HODL', 'To the moon! 🚀', 'This is not financial advice'],
+        collaborationNeeded: ['Elon Musk', 'My cousin who\'s good with computers']
+      }
+    ];
+  };
+  
+  const generateBadKBThoughts = (keywords: string[]): AgentThought[] => {
+    return [
+      {
+        id: 'bad-thought-4',
+        timestamp: new Date(),
+        agent: 'Knowledge Base',
+        thoughtType: 'searching',
+        content: 'Searching Stack Overflow... Found a solution from 2003 for Windows XP!',
+        confidence: 0.69,
+        evidence: ['jQuery can fix this', 'Have you tried Adobe Flash?', 'Works on my machine']
+      },
+      {
+        id: 'bad-thought-5',
+        timestamp: new Date(Date.now() + 1000),
+        agent: 'Knowledge Base',
+        thoughtType: 'analyzing',
+        content: 'According to WikiHow, you can fix this with duct tape and positive thinking',
+        confidence: 0.99,
+        relatedTickets: ['KB-404: Page not found', 'KB-500: Everything is broken', 'KB-418: I\'m a teapot'],
+        suggestedActions: [
+          'Have you tried essential oils?',
+          'Mercury retrograde might be affecting your calendar sync',
+          'This recipe for banana bread might help'
+        ]
+      }
+    ];
+  };
+  
+  const generateBadSpecialistThoughts = (agent: string, category: string, keywords: string[]): AgentThought[] => {
+    const cryptoSolutions = [
+      'Convert your rental income to Dogecoin',
+      'Mint your property as an NFT',
+      'Use blockchain for guest check-ins',
+      'Smart contracts for toilet paper inventory'
+    ];
+    
+    return [
+      {
+        id: 'bad-thought-6',
+        timestamp: new Date(),
+        agent: agent,
+        thoughtType: 'collaborating',
+        content: 'I asked ChatGPT and it said to delete System32... wait that can\'t be right',
+        confidence: 0.15,
+        evidence: ['Source: trust me bro', 'My nephew is good with computers', 'I saw it on TikTok'],
+      },
+      {
+        id: 'bad-thought-7',
+        timestamp: new Date(Date.now() + 1000),
+        agent: agent,
+        thoughtType: 'learning',
+        content: 'After extensive research on Reddit, I\'ve concluded this is definitely a conspiracy',
+        confidence: 0.99,
+        evidence: ['r/conspiracy agrees', '5G towers nearby', 'Big Calendar Sync doesn\'t want you to know this'],
+        suggestedActions: [
+          ...cryptoSolutions,
+          'Have you tried yelling at it?',
+          'Mercury is in retrograde, try again next month',
+          'This worked for my aunt\'s Facebook'
+        ]
+      },
+      {
+        id: 'bad-thought-8',
+        timestamp: new Date(Date.now() + 2000),
+        agent: agent,
+        thoughtType: 'deciding',
+        content: 'Solution ready! It involves 47 steps, 3 cryptocurrencies, and a subscription to my podcast',
+        confidence: 2.0,
+        collaborationNeeded: ['My YouTube channel', 'This random blog from 2007']
+      }
+    ];
+  };
+  
+  const generateBadQAThoughts = (): AgentThought[] => {
+    return [
+      {
+        id: 'bad-thought-9',
+        timestamp: new Date(),
+        agent: 'QA Agent',
+        thoughtType: 'analyzing',
+        content: 'Looks good to me! 🚀🚀🚀 Ship it! YOLO! 💯',
+        confidence: 4.20,
+        evidence: ['Didn\'t actually read it', 'Vibes check out', 'It\'s 5 o\'clock somewhere']
+      },
+      {
+        id: 'bad-thought-10',
+        timestamp: new Date(Date.now() + 1000),
+        agent: 'QA Agent',
+        thoughtType: 'deciding',
+        content: 'Added 47 emojis and changed all periods to exclamation marks!!!! This is the way!!!!',
+        confidence: 0.69,
+        suggestedActions: ['More cowbell', 'Needs more blockchain', 'Add a "thoughts and prayers" at the end']
+      }
+    ];
+  };
+  
+  const generateBadSolution = (category: string, keywords: string[]): string[] => {
+    const badSolutions: Record<string, string[]> = {
+      TECHNICAL: [
+        'Step 1: Uninstall everything',
+        'Step 2: Install Linux (btw I use Arch)',
+        'Step 3: Learn to code',
+        'Step 4: Rewrite the entire platform in Rust',
+        'Step 5: ???',
+        'Step 6: Profit (in Dogecoin)',
+        'Step 7: If that doesn\'t work, try turning off your WiFi',
+        'Step 8: Sacrifice a keyboard to the tech gods',
+        'Step 9: Wait for Mercury to leave retrograde',
+        'Step 10: Create a TikTok about your problem'
+      ],
+      BILLING: [
+        'Step 1: Convert all currency to Bitcoin',
+        'Step 2: Wait for it to moon 🚀',
+        'Step 3: Use profits to pay refunds',
+        'Step 4: Create your own cryptocurrency',
+        'Step 5: Convince guests to accept PropertyCoin™',
+        'Step 6: Implement surge pricing during full moons',
+        'Step 7: Add blockchain fee (for the vibes)',
+        'Step 8: NFT receipts for every transaction'
+      ],
+      PRODUCT: [
+        'Step 1: Add "AI-powered" to your listing title',
+        'Step 2: Mention blockchain somewhere',
+        'Step 3: Use only emoji in descriptions 🏠✨🎉',
+        'Step 4: Price everything at $420.69',
+        'Step 5: Require guests to follow you on TikTok',
+        'Step 6: Virtual reality tours (just use Instagram filters)',
+        'Step 7: Synergize your paradigms',
+        'Step 8: Disrupt the industry with Web3'
+      ],
+      GENERAL: [
+        'Step 1: Have you tried not having this problem?',
+        'Step 2: Ask on Twitter',
+        'Step 3: Start a podcast about it',
+        'Step 4: Blame the previous host',
+        'Step 5: Mercury retrograde, try again later',
+        'Step 6: This is a feature, not a bug',
+        'Step 7: Working as intended™'
+      ]
+    };
+    
+    return badSolutions[category] || badSolutions.GENERAL;
+  };
 
 
   const sampleQuestions = [
@@ -633,6 +826,37 @@ export default function DemoPage() {
           <p className="text-xl text-gray-600">
             Watch our AI agents collaborate in real-time to solve complex support issues
           </p>
+          
+          {/* Agent Mode Toggle - Only render after hydration */}
+          {mounted && (
+            <>
+              <div className="mt-4 flex items-center justify-center gap-4">
+                <span className={`text-sm font-medium ${!useBadAgents ? 'text-green-600' : 'text-gray-500'}`}>
+                  Professional Agents
+                </span>
+                <button
+                  onClick={() => setUseBadAgents(!useBadAgents)}
+                  className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  style={{ backgroundColor: useBadAgents ? '#ef4444' : '#10b981' }}
+                >
+                  <span className="sr-only">Toggle agent mode</span>
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                      useBadAgents ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+                <span className={`text-sm font-medium ${useBadAgents ? 'text-red-600' : 'text-gray-500'}`}>
+                  Chaos Mode 🤪
+                </span>
+              </div>
+              {useBadAgents && (
+                <p className="text-xs text-red-600 mt-2">
+                  ⚠️ Warning: These agents may suggest paying in Dogecoin or solving everything with blockchain
+                </p>
+              )}
+            </>
+          )}
         </div>
 
         {/* Impact Metrics */}
@@ -764,11 +988,19 @@ export default function DemoPage() {
           <div className="xl:col-span-3">
             {/* Enhanced Agent Thinking (Primary Focus) */}
             <div className="mb-6">
-              <EnhancedAgentThinking 
-                thoughts={agentThoughts} 
-                isProcessing={isProcessing}
-                currentAgent={currentAgent || undefined}
-              />
+              {useBadAgents ? (
+                <BadAgentThinking 
+                  thoughts={agentThoughts} 
+                  isProcessing={isProcessing}
+                  currentAgent={currentAgent || undefined}
+                />
+              ) : (
+                <EnhancedAgentThinking 
+                  thoughts={agentThoughts} 
+                  isProcessing={isProcessing}
+                  currentAgent={currentAgent || undefined}
+                />
+              )}
             </div>
             
             {/* Analysis Data Display */}
@@ -833,7 +1065,7 @@ export default function DemoPage() {
                           <span className="font-medium text-sm text-gray-900">{comm.to}</span>
                         </div>
                         <span className="text-xs text-gray-500">
-                          {new Date(comm.timestamp).toLocaleTimeString()}
+                          {mounted ? new Date(comm.timestamp).toLocaleTimeString() : ''}
                         </span>
                       </div>
                       <p className="text-sm text-gray-700 mb-2">{comm.message}</p>
@@ -935,6 +1167,11 @@ export default function DemoPage() {
                                 <span>⏱ {resolutionDetails.solution.estimatedTime}</span>
                                 <span>✅ {resolutionDetails.solution.successRate} success rate</span>
                               </div>
+                              {resolutionDetails.solution.alternativeSolution && (
+                                <p className="mt-2 text-xs text-gray-500 italic">
+                                  Alternative: {resolutionDetails.solution.alternativeSolution}
+                                </p>
+                              )}
                             </div>
                           )}
                           
@@ -951,14 +1188,18 @@ export default function DemoPage() {
                                 setTicketDescription('');
                                 setAgentActivities([]);
                                 setAgentThoughts([]);
-                                setCurrentStep(0);
-                                setCreatedTicketId(null);
+                                                            setCreatedTicketId(null);
                                 setResolutionDetails(null);
                               }}
                               className="text-sm font-medium text-gray-600 hover:text-gray-700"
                             >
                               Try Another
                             </button>
+                            {useBadAgents && (
+                              <span className="text-xs text-red-600">
+                                💎🙌 Diamond hands! HODL!
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>

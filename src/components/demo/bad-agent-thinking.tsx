@@ -237,7 +237,7 @@ export function BadAgentThinking({ thoughts, isProcessing, currentAgent }: BadAg
                   </span>
                 </div>
                 <span className="text-xs text-gray-500">
-                  {new Date(thought.timestamp).toLocaleTimeString()}
+                  {typeof window !== 'undefined' ? new Date(thought.timestamp).toLocaleTimeString() : ''}
                 </span>
               </div>
               
